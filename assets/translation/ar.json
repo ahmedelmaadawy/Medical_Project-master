@@ -1,0 +1,23 @@
+{
+  "Medical_analysis": "افحص تحليلاتك",
+  "welcome_txt": "مرحبا بك \n ماذا تريد أن تفعل ؟",
+  "medical_test": "اختبر تحليلاتك",
+  "health": "تأكد من صحتك",
+  "next_button": "التالي",
+  "Select_photo": "اختر صورة",
+  "open_camera": "افتح الكاميرا",
+  "gallery": "اختر من المكتبة",
+  "previous": "السابق",
+  "no_image": "لم تختار صورة ",
+  "warning": "تحذير",
+  "have_choose": "عليك اختيار صورة أولا ",
+  "ok": "موافق",
+  "test_result": "نتائج التحليل",
+  "home": "الصفحة الرئيسية",
+  "settings": "الاعدادات",
+  "Help": "مساعدة",
+  "about": "عن التطبيق",
+  "general": "عام",
+  "language": "اللغة",
+  "select_language": "من فضلك اختر اللغة"
+}
