@@ -4,10 +4,17 @@ import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:medical_project/after_result.dart';
 import 'dart:io';
 
 import 'package:medical_project/drawer.dart';
 import 'package:medical_project/generated/locale_keys.g.dart';
+
+import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
+import 'package:medical_project/result.dart';
+import 'package:medical_project/test_values.dart';
+import 'package:path/path.dart';
 
 class ChoosePhoto extends StatefulWidget {
   @override
@@ -16,10 +23,20 @@ class ChoosePhoto extends StatefulWidget {
 
 class _ChoosePhotoState extends State<ChoosePhoto> {
   File? image;
-
-  Future pickImage(imagesource) async {
+  List<ResultModel> results = [
+    ResultModel(name: 'WBC', translation: 'كرات الدم البيضاء'),
+    ResultModel(name: 'HGB', translation: 'الهيموغلوبين'),
+    ResultModel(name: 'MCV', translation: 'الحجم الكريوي المتوسط'),
+    ResultModel(name: 'MCH', translation: 'متوسط كرات الهيموجلوبين'),
+    ResultModel(name: 'MCHC', translation: 'تركيز ھيموغلوبين الكرية'),
+    ResultModel(name: 'LYMPH', translation: 'عدد اللمفاويات'),
+    ResultModel(name: 'MONO', translation: 'الخلايا الوحيدة'),
+    ResultModel(name: 'Gender', translation: 'الجنس'),
+    ResultModel(name: 'Age', translation: 'العمر'),
+  ];
+  Future pickImage({required ImageSource source}) async {
     try {
-      final image = await ImagePicker().pickImage(source: imagesource);
+      final image = await ImagePicker().pickImage(source: source);
 
       if (image == null) return;
 
@@ -30,6 +47,29 @@ class _ChoosePhotoState extends State<ChoosePhoto> {
     } on PlatformException catch (e) {
       print('Failed to pick an image: $e');
     }
+  }
+
+  upload() async {
+    var request = http.MultipartRequest(
+        'POST', Uri.parse('http://192.168.1.4:8000/ocr/result/'));
+
+    if (image == null) return;
+    var pickimg = http.MultipartFile.fromPath(
+      'image',
+      image!.path,
+      filename: basename(image!.path),
+      contentType: MediaType.parse('multipart/form-data'),
+    );
+
+    request.files.add(await pickimg);
+    print("Request::: $request,\n");
+    var res = request.send();
+    res.then((value) async {
+      print(
+          "\n\n\n${value.headers},\n\n\nStatusCode::: ${value.statusCode}\n\n\n");
+      print(
+          "Last Res::: ${String.fromCharCodes(await value.stream.toBytes())}");
+    });
   }
 
   @override
@@ -58,7 +98,7 @@ class _ChoosePhotoState extends State<ChoosePhoto> {
                 child: MaterialButton(
                   onPressed: () {
                     var fromcamera = false;
-                    pickImage(ImageSource.gallery);
+                    pickImage(source: ImageSource.gallery);
                   },
                   child: Text(
                     LocaleKeys.gallery.tr(),
@@ -78,7 +118,7 @@ class _ChoosePhotoState extends State<ChoosePhoto> {
                 width: double.infinity,
                 child: MaterialButton(
                   onPressed: () {
-                    pickImage(ImageSource.camera);
+                    pickImage(source: ImageSource.camera);
                   },
                   child: Text(
                     LocaleKeys.open_camera.tr(),
@@ -178,11 +218,14 @@ class _ChoosePhotoState extends State<ChoosePhoto> {
                               ),
                             );
                           } else {
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //       builder: (context) =>)),
-                            // );
+                            upload();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    AfterResult(results),
+                              ),
+                            );
                           }
                         },
                         child: Text(

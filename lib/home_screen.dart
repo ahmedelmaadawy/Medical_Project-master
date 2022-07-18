@@ -4,7 +4,7 @@ import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:medical_project/check_disease.dart';
 import 'package:medical_project/drawer.dart';
-import 'package:medical_project/test_values.dart';
+import 'package:medical_project/select_photo.dart';
 import './generated/locale_keys.g.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(15.0),
               child: Container(
                 width: double.infinity,
                 child: Padding(
@@ -34,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Text(
                     LocaleKeys.welcome_txt.tr(),
                     style:
-                        TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
+                        TextStyle(fontSize: 23.0, fontWeight: FontWeight.bold),
                   ),
                 ),
                 decoration: BoxDecoration(
@@ -67,8 +67,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           padding: const EdgeInsets.all(8.0),
                           child: Image(
                             image: AssetImage('assets/images/test.png'),
-                            height: 90.0,
-                            width: 90.0,
+                            height: 80.0,
+                            width: 80.0,
                           ),
                         ),
                         SizedBox(
@@ -77,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Text(
                           LocaleKeys.medical_test.tr(),
                           style: TextStyle(
-                            fontSize: 25.0,
+                            fontSize: 23.0,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -115,8 +115,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           padding: const EdgeInsets.all(8.0),
                           child: Image(
                             image: AssetImage('assets/images/doctor.png'),
-                            height: 90.0,
-                            width: 90.0,
+                            height: 80.0,
+                            width: 80.0,
                           ),
                         ),
                         SizedBox(
@@ -129,7 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Text(
                           LocaleKeys.health.tr(),
                           style: TextStyle(
-                            fontSize: 25.0,
+                            fontSize: 23.0,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -157,7 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            ismedicaltest ? TestValues() : Selectdisease()),
+                            ismedicaltest ? ChoosePhoto() : Selectdisease()),
                   );
                 },
                 child: Text(

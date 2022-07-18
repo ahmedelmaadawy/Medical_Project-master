@@ -1,21 +1,10 @@
 // ignore_for_file: prefer_const_constructors, non_constant_identifier_names, override_on_non_overriding_member, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
+import 'package:medical_project/result.dart';
 
 import 'after_result.dart';
 import 'drawer.dart';
-
-class ResultModel {
-  String name;
-  String? strValue;
-  int? value;
-  String translation;
-  TextEditingController controller = TextEditingController();
-  ResultModel({
-    required this.name,
-    required this.translation,
-  });
-}
 
 class TestValues extends StatefulWidget {
   @override
@@ -36,28 +25,6 @@ class _TestValuesState extends State<TestValues> {
     ResultModel(name: 'Gender', translation: 'الجنس'),
     ResultModel(name: 'Age', translation: 'العمر'),
   ];
-
-  //   List<ResultModel> results = [
-  //   ResultModel(name: 'WBC', translation: 'كرات الدم البيضاء'),
-  //   ResultModel(name: 'RGB', translation: 'كرات الدم الحمراء'),
-  //   ResultModel(name: 'HGB', translation: 'الهيموغلوبين'),
-  //   ResultModel(name: 'HCT', translation: 'ھيماتوكريت'),
-  //   ResultModel(name: 'MCV', translation: 'الحجم الكريوي المتوسط'),
-  //   ResultModel(name: 'MCH', translation: 'متوسط كرات الهيموجلوبين'),
-  //   ResultModel(name: 'MCHC', translation: 'تركيز ھيموغلوبين الكرية'),
-  //   ResultModel(name: 'PLT', translation: ' صفيحات الدم'),
-  //   ResultModel(name: 'RDW-CV', translation: 'توزيع كريات الدم الحمراء '),
-  //   ResultModel(name: 'RWD-SD', translation: 'عرض توزع كريات الدم الحمراء'),
-  //   ResultModel(name: 'PDW', translation: 'توزيع الصفائح الدموية'),
-  //   ResultModel(name: 'MPV', translation: 'حجم الصفائح الدموية'),
-  //   ResultModel(name: 'P-LCR', translation: 'نسبة الصفائح الدموية الكبيرة'),
-  //   ResultModel(name: 'PCT', translation: 'البروكالسيتونين '),
-  //   ResultModel(name: 'NEUT', translation: 'العدِلات'),
-  //   ResultModel(name: 'LYMPH', translation: 'عدد اللمفاويات'),
-  //   ResultModel(name: 'MONO', translation: 'الخلايا الوحيدة'),
-  //   ResultModel(name: 'EO', translation: 'فرط الحمضات '),
-  //   ResultModel(name: 'BASO', translation: 'خلايا الدم البيضاء القاعدية'),
-  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -96,9 +63,7 @@ class _TestValuesState extends State<TestValues> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => AfterResult(
-                                    results: results,
-                                  )),
+                              builder: (context) => AfterResult(results)),
                         );
                       }
                     },
@@ -131,7 +96,7 @@ class _TestValuesState extends State<TestValues> {
             child: TextFormField(
               controller: result.controller,
               // keyboardType: TextInputType.number,
-              onChanged: (String? value) {
+              onChanged: (String value) {
                 setState(() {
                   result.strValue = value;
                 });
