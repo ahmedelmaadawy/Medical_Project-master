@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:medical_project/check_disease.dart';
 import 'package:medical_project/Models/drawer.dart';
 import 'package:medical_project/personal_information.dart';
-import 'package:medical_project/select_photo.dart';
 import './generated/locale_keys.g.dart';
 
 class HomeScreen extends StatefulWidget {

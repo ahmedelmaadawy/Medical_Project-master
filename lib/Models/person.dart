@@ -9,7 +9,6 @@ class Person {
   String hasLukemia = "UnKnown";
   List<ResultModel> results = [];
   Person({this.gender = "unknown", this.age = 1});
-  
 }
 
 class Dictionary {
@@ -19,7 +18,6 @@ class Dictionary {
 
   List<Dictionary> dictionaryList (){
      List< Dictionary > dictionary = [] ;
-
       dictionary.add(Dictionary(name: "WBC", translation: "كرات الدم البيضاء"));
       dictionary.add(Dictionary(name: "HGB", translation: "الهيموغلوبين"));
       dictionary.add(Dictionary(name: "MCV", translation: "الحجم الكريوي المتوسط"));

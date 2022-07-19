@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
-import 'package:medical_project/test_values.dart';
 
 class ResultModel {
   String name;

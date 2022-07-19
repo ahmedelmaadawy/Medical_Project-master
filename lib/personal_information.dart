@@ -1,14 +1,11 @@
 // ignore_for_file: use_key_in_widget_constructors, file_names, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:easy_localization/src/public_ext.dart';
 import 'package:medical_project/Models/person.dart';
 import 'package:medical_project/select_photo.dart';
 import 'package:medical_project/test_values.dart';
 import 'Models/drawer.dart';
-import 'generated/locale_keys.g.dart';
 
 class PersonalInformation extends StatefulWidget {
   @override
@@ -139,7 +136,7 @@ class _State extends State<PersonalInformation> {
                           ),
                         ),
                         Text(
-                          '${age}',
+                          age.toString(),
                           style: TextStyle(
                               fontSize: 40.0, fontWeight: FontWeight.bold),
                         ),

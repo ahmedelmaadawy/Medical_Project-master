@@ -10,6 +10,7 @@ import 'Models/drawer.dart';
 class TestValues extends StatefulWidget {
   final Person person;
   const TestValues(this.person);
+
   @override
   State<TestValues> createState() => _TestValuesState();
 }
@@ -26,7 +27,6 @@ class _TestValuesState extends State<TestValues> {
     ResultModel(name: 'LYMPH', translation: 'عدد اللمفاويات'),
     ResultModel(name: 'MONO', translation: 'الخلايا الوحيدة'),
   ];
-  
 
   @override
   Widget build(BuildContext context) {

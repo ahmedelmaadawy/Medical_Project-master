@@ -13,8 +13,6 @@ import 'package:medical_project/generated/locale_keys.g.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
-import 'package:medical_project/Models/result.dart';
-import 'package:medical_project/test_values.dart';
 import 'package:path/path.dart';
 
 class ChoosePhoto extends StatefulWidget {
@@ -26,15 +24,15 @@ class ChoosePhoto extends StatefulWidget {
 
 class _ChoosePhotoState extends State<ChoosePhoto> {
   File? image;
-  List<ResultModel> results = [
-    ResultModel(name: 'WBC', translation: 'كرات الدم البيضاء'),
-    ResultModel(name: 'HGB', translation: 'الهيموغلوبين'),
-    ResultModel(name: 'MCV', translation: 'الحجم الكريوي المتوسط'),
-    ResultModel(name: 'MCH', translation: 'متوسط كرات الهيموجلوبين'),
-    ResultModel(name: 'MCHC', translation: 'تركيز ھيموغلوبين الكرية'),
-    ResultModel(name: 'LYMPH', translation: 'عدد اللمفاويات'),
-    ResultModel(name: 'MONO', translation: 'الخلايا الوحيدة'),
-  ];
+  // List<ResultModel> results = [
+  //   ResultModel(name: 'WBC', translation: 'كرات الدم البيضاء'),
+  //   ResultModel(name: 'HGB', translation: 'الهيموغلوبين'),
+  //   ResultModel(name: 'MCV', translation: 'الحجم الكريوي المتوسط'),
+  //   ResultModel(name: 'MCH', translation: 'متوسط كرات الهيموجلوبين'),
+  //   ResultModel(name: 'MCHC', translation: 'تركيز ھيموغلوبين الكرية'),
+  //   ResultModel(name: 'LYMPH', translation: 'عدد اللمفاويات'),
+  //   ResultModel(name: 'MONO', translation: 'الخلايا الوحيدة'),
+  // ];
 
   Future pickImage({required ImageSource source}) async {
     try {
@@ -69,9 +67,9 @@ class _ChoosePhotoState extends State<ChoosePhoto> {
           "\n\n\n${value.headers},\n\n\nStatusCode::: ${value.statusCode}\n\n\n");
       print(
           "Last Res::: ${String.fromCharCodes(await value.stream.toBytes())}");
-    
     });
-    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -140,7 +138,6 @@ class _ChoosePhotoState extends State<ChoosePhoto> {
                             width: double.infinity,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
-
                               // ignore: prefer_const_literals_to_create_immutables
                               children: [
                                 Icon(
@@ -218,8 +215,6 @@ class _ChoosePhotoState extends State<ChoosePhoto> {
                               ),
                             );
                           } else {
-                            widget.person.results = this.results;
-
                             upload();
                             Navigator.push(
                               context,
