@@ -5,8 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:medical_project/settings.dart';
 
-import 'generated/locale_keys.g.dart';
-import 'home_screen.dart';
+import '../generated/locale_keys.g.dart';
+import '../home_screen.dart';
 
 class DefaultDrawer extends StatelessWidget {
   @override

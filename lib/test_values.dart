@@ -1,12 +1,15 @@
 // ignore_for_file: prefer_const_constructors, non_constant_identifier_names, override_on_non_overriding_member, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
-import 'package:medical_project/result.dart';
+import 'package:medical_project/Models/person.dart';
+import 'package:medical_project/Models/result.dart';
 
 import 'after_result.dart';
-import 'drawer.dart';
+import 'Models/drawer.dart';
 
 class TestValues extends StatefulWidget {
+  final Person person;
+  const TestValues(this.person);
   @override
   State<TestValues> createState() => _TestValuesState();
 }
@@ -22,9 +25,8 @@ class _TestValuesState extends State<TestValues> {
     ResultModel(name: 'MCHC', translation: 'تركيز ھيموغلوبين الكرية'),
     ResultModel(name: 'LYMPH', translation: 'عدد اللمفاويات'),
     ResultModel(name: 'MONO', translation: 'الخلايا الوحيدة'),
-    ResultModel(name: 'Gender', translation: 'الجنس'),
-    ResultModel(name: 'Age', translation: 'العمر'),
   ];
+  
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +35,7 @@ class _TestValuesState extends State<TestValues> {
         appBar: AppBar(
           backgroundColor: Colors.blue[800],
           title: Text(
-            'Please Enter The Result',
+            'Please Enter The Values',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
@@ -59,11 +61,12 @@ class _TestValuesState extends State<TestValues> {
                   width: double.infinity,
                   child: MaterialButton(
                     onPressed: () {
+                      widget.person.results = results;
                       if (formKey.currentState!.validate()) {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => AfterResult(results)),
+                              builder: (context) => AfterResult(widget.person)),
                         );
                       }
                     },

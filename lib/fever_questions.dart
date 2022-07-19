@@ -1,7 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, avoid_unnecessary_containers, prefer_final_fields, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
-import 'package:medical_project/drawer.dart';
+import 'package:medical_project/Models/drawer.dart';
 
 class QuestionModel {
   String question;

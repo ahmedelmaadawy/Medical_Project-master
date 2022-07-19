@@ -1,7 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
-import 'package:medical_project/drawer.dart';
+import 'package:medical_project/Models/drawer.dart';
 import 'package:medical_project/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 

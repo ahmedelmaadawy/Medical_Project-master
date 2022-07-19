@@ -2,16 +2,16 @@
 
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
-import 'package:medical_project/drawer.dart';
+import 'package:medical_project/Models/drawer.dart';
 import 'package:medical_project/generated/locale_keys.g.dart';
-import 'package:medical_project/result.dart';
-import 'package:medical_project/test_values.dart';
-import 'result.dart';
+import 'package:medical_project/Models/result.dart';
+import 'Models/person.dart';
+import 'Models/result.dart';
 
 class AfterResult extends StatefulWidget {
-  final List<ResultModel> results;
+  final Person person;
 
-  const AfterResult(this.results);
+  const AfterResult(this.person);
   @override
   State<AfterResult> createState() => _AfterResultState();
 }
@@ -35,10 +35,9 @@ class _AfterResultState extends State<AfterResult> {
               color: Colors.blue[300],
               child: ListView.separated(
                 itemBuilder: (BuildContext context, int index) {
-                  return buildResulItem(widget.results[index]);
-                  ;
+                  return buildResulItem(widget.person.results[index]);
                 },
-                itemCount: widget.results.length,
+                itemCount: widget.person.results.length,
                 separatorBuilder: (BuildContext context, int index) {
                   return Divider(
                     color: Colors.white,
@@ -55,11 +54,9 @@ class _AfterResultState extends State<AfterResult> {
               child: Container(
                 height: 50.0,
                 child: MaterialButton(
-                  onPressed: () {
-            
-                  },
+                  onPressed: () {},
                   child: Text(
-                    'Test Anemia',
+                    'Show Results',
                     style: TextStyle(
                         fontSize: 20.0,
                         fontWeight: FontWeight.bold,
@@ -72,63 +69,6 @@ class _AfterResultState extends State<AfterResult> {
                   ),
                   color: Colors.blue[800],
                 ),
-              ),
-            ),
-          ),
-          Container(
-            color: Colors.blue[300],
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                width: double.infinity,
-                height: 50.0,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: MaterialButton(
-                    onPressed: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //       builder: (context) =>
-                      // );
-                      // DioHelper.getData(
-                      //   path: "/mainmodels/covidclassify/?",
-                      //   queryPara: {
-                      //     "wbc": widget.results[0].strValue,
-                      //     "mot": widget.results[6].strValue,
-                      //     "lyt": widget.results[5].strValue,
-                      //     "age": widget.results[8].strValue,
-                      //   },
-                      // ).then((value) {
-                      //   print("\n\nSTATUS::::: ${value.statusCode}\n\n");
-                      //   covidresult = value.data['results']['Has Covid?'];
-                      //   print("result:::: $covidresult");
-                      // }).catchError((error) {
-                      //   print("Errororor" + error.toString());
-                      // });
-                      setState(() {
-                        //   Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //       builder: (context) => CovidResult(
-                        //         // result: covidresult,
-                        //       ),
-                        //     ),
-                        //   );
-                      });
-                    },
-                    child: Text(
-                      'Test Covid',
-                      style: TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
-                    ),
-                  ),
-                ),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(25.0),
-                    color: Colors.blue[800]),
               ),
             ),
           ),

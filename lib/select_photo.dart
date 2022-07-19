@@ -4,19 +4,22 @@ import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:medical_project/Models/person.dart';
 import 'package:medical_project/after_result.dart';
 import 'dart:io';
 
-import 'package:medical_project/drawer.dart';
+import 'package:medical_project/Models/drawer.dart';
 import 'package:medical_project/generated/locale_keys.g.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
-import 'package:medical_project/result.dart';
+import 'package:medical_project/Models/result.dart';
 import 'package:medical_project/test_values.dart';
 import 'package:path/path.dart';
 
 class ChoosePhoto extends StatefulWidget {
+  final Person person;
+  const ChoosePhoto(this.person, {Key? key}) : super(key: key);
   @override
   State<ChoosePhoto> createState() => _ChoosePhotoState();
 }
@@ -31,13 +34,11 @@ class _ChoosePhotoState extends State<ChoosePhoto> {
     ResultModel(name: 'MCHC', translation: 'تركيز ھيموغلوبين الكرية'),
     ResultModel(name: 'LYMPH', translation: 'عدد اللمفاويات'),
     ResultModel(name: 'MONO', translation: 'الخلايا الوحيدة'),
-    ResultModel(name: 'Gender', translation: 'الجنس'),
-    ResultModel(name: 'Age', translation: 'العمر'),
   ];
+
   Future pickImage({required ImageSource source}) async {
     try {
       final image = await ImagePicker().pickImage(source: source);
-
       if (image == null) return;
 
       final imageTemp = File(image.path);
@@ -60,7 +61,6 @@ class _ChoosePhotoState extends State<ChoosePhoto> {
       filename: basename(image!.path),
       contentType: MediaType.parse('multipart/form-data'),
     );
-
     request.files.add(await pickimg);
     print("Request::: $request,\n");
     var res = request.send();
@@ -69,9 +69,9 @@ class _ChoosePhotoState extends State<ChoosePhoto> {
           "\n\n\n${value.headers},\n\n\nStatusCode::: ${value.statusCode}\n\n\n");
       print(
           "Last Res::: ${String.fromCharCodes(await value.stream.toBytes())}");
+    
     });
-  }
-
+    }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -218,12 +218,14 @@ class _ChoosePhotoState extends State<ChoosePhoto> {
                               ),
                             );
                           } else {
+                            widget.person.results = this.results;
+
                             upload();
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    AfterResult(results),
+                                    AfterResult(widget.person),
                               ),
                             );
                           }

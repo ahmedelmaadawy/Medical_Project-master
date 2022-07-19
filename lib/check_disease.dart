@@ -1,7 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
-import 'package:medical_project/drawer.dart';
+import 'package:medical_project/Models/drawer.dart';
 import 'package:medical_project/fever_questions.dart';
 
 class Selectdisease extends StatelessWidget {

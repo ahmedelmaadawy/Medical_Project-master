@@ -3,7 +3,8 @@
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:medical_project/check_disease.dart';
-import 'package:medical_project/drawer.dart';
+import 'package:medical_project/Models/drawer.dart';
+import 'package:medical_project/personal_information.dart';
 import 'package:medical_project/select_photo.dart';
 import './generated/locale_keys.g.dart';
 
@@ -88,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     borderRadius: BorderRadius.circular(
                       20.0,
                     ),
-                    color: ismedicaltest ? Colors.blue : Colors.grey[300],
+                    color: ismedicaltest ? Colors.blue : Colors.grey[400],
                   ),
                 ),
               ),
@@ -140,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     borderRadius: BorderRadius.circular(
                       20.0,
                     ),
-                    color: ismedicaltest ? Colors.grey[300] : Colors.blue,
+                    color: ismedicaltest ? Colors.grey[400] : Colors.blue,
                   ),
                 ),
               ),
@@ -156,8 +157,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                            ismedicaltest ? ChoosePhoto() : Selectdisease()),
+                        builder: (context) => ismedicaltest
+                            ? PersonalInformation()
+                            : Selectdisease()),
                   );
                 },
                 child: Text(

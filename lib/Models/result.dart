@@ -5,14 +5,18 @@ import 'package:medical_project/test_values.dart';
 
 class ResultModel {
   String name;
-  String strValue = "test";
+  String strValue = "0.0";
   double value = 0.0;
   String translation;
   TextEditingController controller = TextEditingController();
+  
+  
   ResultModel({
     required this.name,
-    required this.translation,
+    required this.translation, 
   });
+
+  
 }
 Widget buildResulItem(ResultModel results) => Padding(
       padding: const EdgeInsets.all(10.0),
