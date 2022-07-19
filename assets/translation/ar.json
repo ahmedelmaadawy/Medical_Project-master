@@ -28,5 +28,6 @@
   "translation_only_text": "ترجمة فقط",
   "enter_values_text": "ادخل القيم بنفسك",
   "personal_information_text": "معلومات شخصيه ",
-  "last_results": "النتيجة النهائية"
+  "last_results": "النتيجة النهائية",
+  "wrong_input": "قيمة خاطئة"
 }

@@ -31,5 +31,6 @@ abstract class  LocaleKeys {
   static const enter_values_text = 'enter_values_text';
   static const personal_information_text = 'personal_information_text';
   static const last_results = 'last_results';
+  static const wrong_input = 'wrong_input';
 
 }

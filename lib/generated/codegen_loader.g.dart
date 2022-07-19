@@ -44,7 +44,8 @@ class CodegenLoader extends AssetLoader{
   "translation_only_text": "ترجمة فقط",
   "enter_values_text": "ادخل القيم بنفسك",
   "personal_information_text": "معلومات شخصيه ",
-  "last_results": "النتيجة النهائية"
+  "last_results": "النتيجة النهائية",
+  "wrong_input": "قيمة خاطئة"
 };
 static const Map<String,dynamic> en = {
   "Medical_analysis": "Medical Analysis",
@@ -76,7 +77,8 @@ static const Map<String,dynamic> en = {
   "translation_only_text": "Translation Only",
   "enter_values_text": "Enter Values Yourself",
   "personal_information_text": "Personal Information",
-  "last_results": "Show Results"
+  "last_results": "Show Results",
+  "wrong_input": "Wrong Input"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar": ar, "en": en};
 }

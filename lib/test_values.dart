@@ -9,7 +9,6 @@ import 'Models/drawer.dart';
 import 'package:medical_project/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-
 class TestValues extends StatefulWidget {
   final Person person;
   const TestValues(this.person);
@@ -101,7 +100,7 @@ class _TestValuesState extends State<TestValues> {
           child: Expanded(
             child: TextFormField(
               controller: result.controller,
-              // keyboardType: TextInputType.number,
+              keyboardType: TextInputType.number,
               onChanged: (String value) {
                 setState(() {
                   result.strValue = value;
@@ -109,7 +108,7 @@ class _TestValuesState extends State<TestValues> {
               },
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return ('Wrong Input');
+                  return (LocaleKeys.wrong_input.tr());
                 }
                 return null;
               },
