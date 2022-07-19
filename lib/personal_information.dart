@@ -1,11 +1,12 @@
 // ignore_for_file: use_key_in_widget_constructors, file_names, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-
 import 'package:flutter/material.dart';
 import 'package:medical_project/Models/person.dart';
 import 'package:medical_project/select_photo.dart';
 import 'package:medical_project/test_values.dart';
 import 'Models/drawer.dart';
+import './generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class PersonalInformation extends StatefulWidget {
   @override
@@ -22,7 +23,7 @@ class _State extends State<PersonalInformation> {
       endDrawer: DefaultDrawer(),
       appBar: AppBar(
         title: Text(
-          'Personal Information',
+          LocaleKeys.personal_information_text.tr(),
         ),
         backgroundColor: Colors.blue[800],
       ),
@@ -55,7 +56,7 @@ class _State extends State<PersonalInformation> {
                                 height: 15,
                               ),
                               Text(
-                                'Male',
+                                LocaleKeys.male_text.tr(),
                                 style: TextStyle(
                                   fontSize: 25.0,
                                   fontWeight: FontWeight.bold,
@@ -98,7 +99,7 @@ class _State extends State<PersonalInformation> {
                                 height: 15,
                               ),
                               Text(
-                                'Female',
+                                LocaleKeys.female_text.tr(),
                                 style: TextStyle(
                                   fontSize: 25.0,
                                   fontWeight: FontWeight.bold,
@@ -129,7 +130,7 @@ class _State extends State<PersonalInformation> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'AGE',
+                          LocaleKeys.age_text.tr(),
                           style: TextStyle(
                             fontSize: 25.0,
                             fontWeight: FontWeight.bold,
@@ -200,7 +201,7 @@ class _State extends State<PersonalInformation> {
                     );
                   },
                   child: Text(
-                    "CBC",
+                    LocaleKeys.cbc_text.tr(),
                     style: TextStyle(
                         fontSize: 25.0,
                         fontWeight: FontWeight.bold,
@@ -237,7 +238,7 @@ class _State extends State<PersonalInformation> {
                     });
                   },
                   child: Text(
-                    "Leukemia",
+                    LocaleKeys.leukemia_text.tr(),
                     style: TextStyle(
                         fontSize: 25.0,
                         fontWeight: FontWeight.bold,
@@ -268,7 +269,7 @@ class _State extends State<PersonalInformation> {
                         ));
                   },
                   child: Text(
-                    "Translation Only",
+                    LocaleKeys.translation_only_text.tr(),
                     style: TextStyle(
                         fontSize: 25.0,
                         fontWeight: FontWeight.bold,
@@ -301,7 +302,7 @@ class _State extends State<PersonalInformation> {
                     );
                   },
                   child: Text(
-                    "Enter Values Yourself",
+                    LocaleKeys.enter_values_text.tr(),
                     style: TextStyle(
                         fontSize: 25.0,
                         fontWeight: FontWeight.bold,

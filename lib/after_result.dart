@@ -24,7 +24,7 @@ class _AfterResultState extends State<AfterResult> {
       appBar: AppBar(
         backgroundColor: Colors.blue[800],
         title: Text(
-          LocaleKeys.medical_test.tr(),
+          LocaleKeys.test_result.tr(),
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
@@ -56,7 +56,7 @@ class _AfterResultState extends State<AfterResult> {
                 child: MaterialButton(
                   onPressed: () {},
                   child: Text(
-                    'Show Results',
+                    LocaleKeys.last_results.tr(),
                     style: TextStyle(
                         fontSize: 20.0,
                         fontWeight: FontWeight.bold,

@@ -6,6 +6,9 @@ import 'package:medical_project/Models/result.dart';
 
 import 'after_result.dart';
 import 'Models/drawer.dart';
+import 'package:medical_project/generated/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
+
 
 class TestValues extends StatefulWidget {
   final Person person;
@@ -35,7 +38,7 @@ class _TestValuesState extends State<TestValues> {
         appBar: AppBar(
           backgroundColor: Colors.blue[800],
           title: Text(
-            'Please Enter The Values',
+            LocaleKeys.enter_values_text.tr(),
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
@@ -71,7 +74,7 @@ class _TestValuesState extends State<TestValues> {
                       }
                     },
                     child: Text(
-                      'Submit',
+                      LocaleKeys.next_button.tr(),
                       style: TextStyle(
                           fontSize: 25.0,
                           fontWeight: FontWeight.bold,

@@ -60,7 +60,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               });
                               Navigator.pop(context);
                             },
-                            child: const Text('English'),
+                            child: const Text("English"),
                           ),
                           TextButton(
                             onPressed: () async {
@@ -79,7 +79,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               );
             },
-            child: SizedBox(
+            child: Container(
               width: double.infinity,
               child: Row(
                 children: [
@@ -100,13 +100,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       children: [
                         Text(
                           LocaleKeys.language.tr(),
-                          style: TextStyle(
-                              fontSize: 20.0, color: Colors.black87),
+                          style:
+                              TextStyle(fontSize: 20.0, color: Colors.black87),
                         ),
                         Text(
                           currentLanguage,
-                          style: TextStyle(
-                              fontSize: 15.0, color: Colors.black54),
+                          style:
+                              TextStyle(fontSize: 15.0, color: Colors.black54),
                         ),
                       ],
                     ),
