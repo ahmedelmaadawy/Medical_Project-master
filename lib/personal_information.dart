@@ -2,11 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:medical_project/Models/person.dart';
+import 'package:medical_project/routes.dart';
 import 'package:medical_project/select_photo.dart';
+import 'package:medical_project/styles/prjcolors.dart';
 import 'package:medical_project/test_values.dart';
 import 'Models/drawer.dart';
 import './generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:http/http.dart' as http;
 
 class PersonalInformation extends StatefulWidget {
   @override
@@ -17,6 +20,24 @@ class _State extends State<PersonalInformation> {
   bool isMale = true;
   int age = 20;
   Person person = Person();
+  http.Client client = http.Client();
+  List<Map<String, String>> routes = Routes().getroutes();
+  //
+  // Send Basic Info
+  //
+  sendBasicInfo(String gender, String age) async {
+    Uri basicInfo = Uri.parse(routes[0]["BasicInfo"]!);
+
+    //TODO: Remove Print Lines
+
+    print("fuuffunfufnfu $basicInfo");
+    var res =
+        await client.post(basicInfo, body: {"gender": gender, "age": age});
+    print("fuuffunfufnfu wait");
+    print("Basic Info Status Code:: ${res.statusCode}");
+    print("Basic Info Status Code:: ${res.body}");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +46,7 @@ class _State extends State<PersonalInformation> {
         title: Text(
           LocaleKeys.personal_information_text.tr(),
         ),
-        backgroundColor: Colors.blue[800],
+        backgroundColor: ProjectColors.primary_color_blue,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -51,6 +72,7 @@ class _State extends State<PersonalInformation> {
                                 image: AssetImage('assets/images/male.png'),
                                 height: 90.0,
                                 width: 90.0,
+                                color: ProjectColors.button_text_color,
                               ),
                               SizedBox(
                                 height: 15,
@@ -60,6 +82,7 @@ class _State extends State<PersonalInformation> {
                                 style: TextStyle(
                                   fontSize: 25.0,
                                   fontWeight: FontWeight.bold,
+                                  color: ProjectColors.button_text_color,
                                 ),
                               )
                             ],
@@ -69,7 +92,9 @@ class _State extends State<PersonalInformation> {
                           borderRadius: BorderRadius.circular(
                             10.0,
                           ),
-                          color: isMale ? Colors.blue : Colors.grey[400],
+                          color: isMale
+                              ? ProjectColors.primary_color_blue
+                              : Colors.grey[500],
                         ),
                       ),
                     ),
@@ -94,6 +119,7 @@ class _State extends State<PersonalInformation> {
                                 image: AssetImage('assets/images/female.png'),
                                 height: 90.0,
                                 width: 90.0,
+                                color: ProjectColors.button_text_color,
                               ),
                               SizedBox(
                                 height: 15,
@@ -101,9 +127,9 @@ class _State extends State<PersonalInformation> {
                               Text(
                                 LocaleKeys.female_text.tr(),
                                 style: TextStyle(
-                                  fontSize: 25.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                    fontSize: 25.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: ProjectColors.button_text_color),
                               )
                             ],
                           ),
@@ -112,7 +138,9 @@ class _State extends State<PersonalInformation> {
                           borderRadius: BorderRadius.circular(
                             10.0,
                           ),
-                          color: !isMale ? Colors.blue : Colors.grey[400],
+                          color: !isMale
+                              ? ProjectColors.secondary_color
+                              : Colors.grey[500],
                         ),
                       ),
                     ),
@@ -145,6 +173,7 @@ class _State extends State<PersonalInformation> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             FloatingActionButton(
+                              backgroundColor: ProjectColors.primary_color_blue,
                               onPressed: () {
                                 setState(() {
                                   age--;
@@ -156,6 +185,7 @@ class _State extends State<PersonalInformation> {
                               ),
                             ),
                             FloatingActionButton(
+                              backgroundColor: ProjectColors.primary_color_blue,
                               onPressed: () {
                                 setState(() {
                                   age++;
@@ -175,7 +205,7 @@ class _State extends State<PersonalInformation> {
                     borderRadius: BorderRadius.circular(
                       10.0,
                     ),
-                    color: Colors.grey[400],
+                    color: Colors.grey[500],
                   ),
                 ),
                 SizedBox(
@@ -193,6 +223,9 @@ class _State extends State<PersonalInformation> {
                     person.age = age;
                     isMale ? person.gender = "Male" : person.gender = "Female";
                     person.isLeukemiaTest = false;
+                    person.isOCRTest = true;
+                    sendBasicInfo((person.gender!).toString().toLowerCase(),
+                        (person.age).toString());
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -212,10 +245,11 @@ class _State extends State<PersonalInformation> {
                   borderRadius: BorderRadius.circular(
                     20.0,
                   ),
-                  color: Colors.blue[800],
+                  color: ProjectColors.primary_color_blue,
                 ),
               ),
             ),
+            // Leukemia
             Padding(
               padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
               child: Container(
@@ -242,17 +276,18 @@ class _State extends State<PersonalInformation> {
                     style: TextStyle(
                         fontSize: 25.0,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white),
+                        color: ProjectColors.button_text_color),
                   ),
                 ),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(
                     20.0,
                   ),
-                  color: Colors.blue[800],
+                  color: ProjectColors.primary_color_blue,
                 ),
               ),
             ),
+            // translation
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Container(
@@ -280,10 +315,11 @@ class _State extends State<PersonalInformation> {
                   borderRadius: BorderRadius.circular(
                     20.0,
                   ),
-                  color: Colors.blue[800],
+                  color: ProjectColors.primary_color_blue,
                 ),
               ),
             ),
+            // EnteredValues
             Padding(
               padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 20.0),
               child: Container(
@@ -291,13 +327,22 @@ class _State extends State<PersonalInformation> {
                 width: double.infinity,
                 child: MaterialButton(
                   onPressed: () {
+                    //TODO: Remove Print Lines
+                    print("seeeendndnendnednend1111");
                     person.age = age;
                     isMale ? person.gender = "Male" : person.gender = "Female";
                     person.isLeukemiaTest = false;
+                    print("seeeendndnendnednend2222");
+                    sendBasicInfo((person.gender!).toString().toLowerCase(),
+                        (person.age).toString());
+                    print("seeeendndnendnednend33333");
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => TestValues(person),
+                        builder: (context) => TestValues(
+                          person,
+                          client: client,
+                        ),
                       ),
                     );
                   },
@@ -306,14 +351,14 @@ class _State extends State<PersonalInformation> {
                     style: TextStyle(
                         fontSize: 25.0,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white),
+                        color: ProjectColors.button_text_color),
                   ),
                 ),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(
                     20.0,
                   ),
-                  color: Colors.blue[800],
+                  color: ProjectColors.primary_color_blue,
                 ),
               ),
             ),

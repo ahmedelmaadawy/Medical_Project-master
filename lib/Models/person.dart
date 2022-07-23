@@ -1,18 +1,22 @@
+import 'package:flutter/cupertino.dart';
 import 'package:medical_project/Models/result.dart';
 
 class Person {
   String? gender;
   int? age;
   bool isLeukemiaTest = false;
-  String hasAnimea = "UnKnown";
-  String hasCovid = "UnKnown";
-  String hasLukemia = "UnKnown";
+  bool isOCRTest = false;
+  bool hasAnimea = false;
+  bool hasCovid = false;
+  bool hasLukemia = false;
   List<ResultModel> results = [];
+
   Person({this.gender = "unknown", this.age = 1});
+
+
+
+
+
+
 }
 
-class Dictionary {
-  String name;
-  String translation;
-  Dictionary({required this.name, required this.translation});
-}

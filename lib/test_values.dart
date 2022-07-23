@@ -1,8 +1,11 @@
 // ignore_for_file: prefer_const_constructors, non_constant_identifier_names, override_on_non_overriding_member, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:medical_project/Models/person.dart';
 import 'package:medical_project/Models/result.dart';
+import 'package:medical_project/routes.dart';
+import 'package:medical_project/styles/prjcolors.dart';
 
 import 'after_result.dart';
 import 'Models/drawer.dart';
@@ -11,7 +14,8 @@ import 'package:easy_localization/easy_localization.dart';
 
 class TestValues extends StatefulWidget {
   final Person person;
-  const TestValues(this.person);
+  http.Client client;
+  TestValues(this.person, {required this.client});
 
   @override
   State<TestValues> createState() => _TestValuesState();
@@ -19,7 +23,6 @@ class TestValues extends StatefulWidget {
 
 class _TestValuesState extends State<TestValues> {
   var formKey = GlobalKey<FormState>();
-
   List<ResultModel> results = [
     ResultModel(name: 'WBC', translation: 'كرات الدم البيضاء'),
     ResultModel(name: 'HGB', translation: 'الهيموغلوبين'),
@@ -29,13 +32,12 @@ class _TestValuesState extends State<TestValues> {
     ResultModel(name: 'LYMPH', translation: 'عدد اللمفاويات'),
     ResultModel(name: 'MONO', translation: 'الخلايا الوحيدة'),
   ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         endDrawer: DefaultDrawer(),
         appBar: AppBar(
-          backgroundColor: Colors.blue[800],
+          backgroundColor: ProjectColors.primary_color_blue,
           title: Text(
             LocaleKeys.enter_values_text.tr(),
             style: TextStyle(fontWeight: FontWeight.bold),
@@ -68,7 +70,12 @@ class _TestValuesState extends State<TestValues> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => AfterResult(widget.person)),
+                            builder: (context) => AfterResult(
+                              widget.person,
+                              client: widget.client,
+                              result: '',
+                            ),
+                          ),
                         );
                       }
                     },
@@ -84,7 +91,7 @@ class _TestValuesState extends State<TestValues> {
                     borderRadius: BorderRadius.circular(
                       20.0,
                     ),
-                    color: Colors.blue[800],
+                    color: ProjectColors.primary_color_blue,
                   ),
                 ),
               ),
@@ -96,14 +103,14 @@ class _TestValuesState extends State<TestValues> {
   @override
   Widget ResultItemBuilder(ResultModel result) => Container(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(10.0),
           child: Expanded(
             child: TextFormField(
               controller: result.controller,
               keyboardType: TextInputType.number,
               onChanged: (String value) {
                 setState(() {
-                  result.strValue = value;
+                  result.value = double.parse(value);
                 });
               },
               validator: (value) {
@@ -112,11 +119,30 @@ class _TestValuesState extends State<TestValues> {
                 }
                 return null;
               },
+              cursorColor: ProjectColors.primary_color_blue,
               decoration: InputDecoration(
                 labelText: result.name,
                 labelStyle: TextStyle(fontSize: 25.0, color: Colors.black),
-                border: OutlineInputBorder(
+                enabledBorder: OutlineInputBorder(
+                  borderSide:
+                      BorderSide(color: ProjectColors.primary_color_blue),
                   borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide:
+                      BorderSide(color: ProjectColors.primary_color_blue),
+                  borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                ),
+                focusedErrorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(25.0),
+                  ),
+                ),
+                errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(25.0),
+                  ),
+                  borderSide: BorderSide(color: Colors.red),
                 ),
               ),
             ),

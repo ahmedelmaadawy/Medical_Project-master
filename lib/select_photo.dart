@@ -1,4 +1,6 @@
-// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, non_constant_identifier_names, override_on_non_overriding_member, annotate_overrides, await_only_futures, unused_local_variable, unused_catch_clause, avoid_print, unnecessary_this, implementation_imports
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, non_constant_identifier_names, override_on_non_overriding_member, annotate_overrides, await_only_futures, unused_local_variable, unused_catch_clause, avoid_print, unnecessary_this, implementation_imports, must_be_immutable, prefer_typing_uninitialized_variables
+
+import 'dart:convert';
 
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
@@ -9,21 +11,33 @@ import 'package:medical_project/after_result.dart';
 import 'dart:io';
 
 import 'package:medical_project/Models/drawer.dart';
+import 'package:medical_project/animiacovidresult.dart';
+import 'package:medical_project/apiHandler.dart';
 import 'package:medical_project/generated/locale_keys.g.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
+import 'package:medical_project/routes.dart';
+import 'package:medical_project/styles/prjcolors.dart';
 import 'package:path/path.dart';
 
 class ChoosePhoto extends StatefulWidget {
-  final Person person;
-  const ChoosePhoto(this.person, {Key? key}) : super(key: key);
+  http.Client client = http.Client();
+  Person person;
+  ChoosePhoto(this.person, {Key? key}) : super(key: key);
   @override
   State<ChoosePhoto> createState() => _ChoosePhotoState();
 }
 
 class _ChoosePhotoState extends State<ChoosePhoto> {
   File? image;
+  var ocrResult;
+  Map<String, dynamic> leukemiaResult = {};
+
+  var clientResult = '';
+
+  var routes = Routes().getroutes();
+
   // List<ResultModel> results = [
   //   ResultModel(name: 'WBC', translation: 'كرات الدم البيضاء'),
   //   ResultModel(name: 'HGB', translation: 'الهيموغلوبين'),
@@ -44,30 +58,60 @@ class _ChoosePhotoState extends State<ChoosePhoto> {
         this.image = imageTemp;
       });
     } on PlatformException catch (e) {
+      //TODO: Remove Print Lines
+
       print('Failed to pick an image: $e');
     }
   }
 
-  upload() async {
-    var request = http.MultipartRequest(
-        'POST', Uri.parse('http://192.168.1.4:8000/ocr/result/'));
+  getOCRresult() async {
+    var request = http.MultipartRequest('POST', Uri.parse(routes[1]["OCR"]));
 
-    if (image == null) return;
+    if (image == null) return {"": ""};
     var pickimg = http.MultipartFile.fromPath(
       'image',
       image!.path,
       filename: basename(image!.path),
       contentType: MediaType.parse('multipart/form-data'),
     );
+
     request.files.add(await pickimg);
+
+    //TODO: Remove Print Lines
+
+    print("Request: $request,\n");
+    var res = await request.send();
+    var finalresult =
+        json.decode(String.fromCharCodes(await res.stream.toBytes()));
+
+    setState(() {});
+    return finalresult;
+  }
+
+  Future<Map<String, dynamic>> getLeukemiaResult() async {
+    var request =
+        http.MultipartRequest('POST', Uri.parse(routes[0]["CallLeukemia"]));
+
+    if (image == null) return {"": ""};
+    var pickimg = http.MultipartFile.fromPath(
+      'image',
+      image!.path,
+      filename: basename(image!.path),
+      contentType: MediaType.parse('multipart/form-data'),
+    );
+
+    request.files.add(await pickimg);
+    //TODO: Remove Print Lines
+
     print("Request::: $request,\n");
-    var res = request.send();
-    res.then((value) async {
-      print(
-          "\n\n\n${value.headers},\n\n\nStatusCode::: ${value.statusCode}\n\n\n");
-      print(
-          "Last Res::: ${String.fromCharCodes(await value.stream.toBytes())}");
-    });
+    var res = await request.send();
+
+    var analysisResult = Map<String, dynamic>.from(
+        json.decode(String.fromCharCodes(await res.stream.toBytes())));
+
+    print(analysisResult);
+    setState(() {});
+    return analysisResult;
   }
 
   @override
@@ -75,7 +119,7 @@ class _ChoosePhotoState extends State<ChoosePhoto> {
     return Scaffold(
       endDrawer: DefaultDrawer(),
       appBar: AppBar(
-        backgroundColor: Colors.blue[800],
+        backgroundColor: ProjectColors.primary_color_blue,
         title: Text(
           LocaleKeys.Select_photo.tr(),
           style: TextStyle(
@@ -100,12 +144,13 @@ class _ChoosePhotoState extends State<ChoosePhoto> {
                   },
                   child: Text(
                     LocaleKeys.gallery.tr(),
-                    style: TextStyle(fontSize: 20.0),
+                    style: TextStyle(
+                        fontSize: 20.0, color: ProjectColors.button_text_color),
                   ),
                 ),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.0),
-                  color: Colors.blue[800],
+                  color: ProjectColors.primary_color_blue,
                 ),
               ),
               SizedBox(
@@ -120,12 +165,13 @@ class _ChoosePhotoState extends State<ChoosePhoto> {
                   },
                   child: Text(
                     LocaleKeys.open_camera.tr(),
-                    style: TextStyle(fontSize: 20.0),
+                    style: TextStyle(
+                        fontSize: 20.0, color: ProjectColors.button_text_color),
                   ),
                 ),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.0),
-                  color: Colors.blue[800],
+                  color: ProjectColors.primary_color_blue,
                 ),
               ),
               Expanded(
@@ -171,6 +217,8 @@ class _ChoosePhotoState extends State<ChoosePhoto> {
                       width: double.infinity,
                       child: MaterialButton(
                         onPressed: () {
+                          widget.person.isLeukemiaTest = false;
+                          widget.person.isOCRTest = false;
                           Navigator.pop(context);
                         },
                         child: Text(
@@ -185,7 +233,7 @@ class _ChoosePhotoState extends State<ChoosePhoto> {
                         borderRadius: BorderRadius.circular(
                           20.0,
                         ),
-                        color: Colors.blue[800],
+                        color: ProjectColors.primary_color_blue,
                       ),
                     ),
                   ),
@@ -197,12 +245,15 @@ class _ChoosePhotoState extends State<ChoosePhoto> {
                       height: 50.0,
                       width: double.infinity,
                       child: MaterialButton(
-                        onPressed: () {
+                        onPressed: () async {
                           if (image == null) {
                             showDialog<String>(
                               context: context,
                               builder: (BuildContext context) => AlertDialog(
-                                title: Text(LocaleKeys.warning.tr()),
+                                title: Text(
+                                  LocaleKeys.warning.tr(),
+                                  style: TextStyle(color: Colors.red),
+                                ),
                                 content: Text(LocaleKeys.have_choose.tr()),
                                 actions: <Widget>[
                                   Center(
@@ -215,14 +266,35 @@ class _ChoosePhotoState extends State<ChoosePhoto> {
                               ),
                             );
                           } else {
-                            upload();
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    AfterResult(widget.person),
-                              ),
-                            );
+                            if (!(widget.person.isLeukemiaTest)) {
+                              ocrResult = await getOCRresult();
+                              print(ocrResult);
+                              widget.person =
+                                  await APIHandler().insertValuesFunction(
+                                person: widget.person,
+                                finalResult: ocrResult,
+                              );
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => AfterResult(
+                                      widget.person,
+                                      client: widget.client,
+                                      result: ocrResult),
+                                ),
+                              );
+                            } else {
+                              print(widget.person.isLeukemiaTest);
+                              print(widget.person.isOCRTest);
+                              leukemiaResult = await getLeukemiaResult();
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      AnimiaCovidResult(widget.person),
+                                ),
+                              );
+                            }
                           }
                         },
                         child: Text(
@@ -237,7 +309,7 @@ class _ChoosePhotoState extends State<ChoosePhoto> {
                         borderRadius: BorderRadius.circular(
                           20.0,
                         ),
-                        color: Colors.blue[800],
+                        color: ProjectColors.primary_color_blue,
                       ),
                     ),
                   ),

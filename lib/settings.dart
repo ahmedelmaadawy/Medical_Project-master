@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:medical_project/Models/drawer.dart';
 import 'package:medical_project/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:medical_project/styles/prjcolors.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -18,7 +19,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Scaffold(
       endDrawer: DefaultDrawer(),
       appBar: AppBar(
-        backgroundColor: Colors.blue[800],
+        backgroundColor: ProjectColors.primary_color_blue,
         title: Text(
           LocaleKeys.settings.tr(),
           style: TextStyle(fontWeight: FontWeight.bold),
@@ -34,7 +35,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               style: TextStyle(
                 fontSize: 20.0,
                 fontWeight: FontWeight.bold,
-                color: Colors.blue[800],
+                color: ProjectColors.primary_color_blue,
               ),
             ),
           ),

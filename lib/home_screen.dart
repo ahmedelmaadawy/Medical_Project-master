@@ -6,6 +6,7 @@ import 'package:medical_project/check_disease.dart';
 import 'package:medical_project/Models/drawer.dart';
 import 'package:medical_project/personal_information.dart';
 import './generated/locale_keys.g.dart';
+import 'styles/prjcolors.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -19,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       endDrawer: DefaultDrawer(),
       appBar: AppBar(
-        backgroundColor: Colors.blue[800],
+        backgroundColor: ProjectColors.primary_color_blue,
         title: Text(LocaleKeys.Medical_analysis.tr()),
       ),
       body: Column(
@@ -28,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Padding(
               padding: const EdgeInsets.all(15.0),
               child: Container(
+                alignment: Alignment.topCenter,
                 width: double.infinity,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -41,7 +43,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   borderRadius: BorderRadius.circular(
                     20.0,
                   ),
-                  color: Colors.purple[200],
                 ),
               ),
             ),
@@ -69,6 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             image: AssetImage('assets/images/test.png'),
                             height: 80.0,
                             width: 80.0,
+                            color: Colors.white,
                           ),
                         ),
                         SizedBox(
@@ -77,9 +79,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         Text(
                           LocaleKeys.medical_test.tr(),
                           style: TextStyle(
-                            fontSize: 23.0,
-                            fontWeight: FontWeight.bold,
-                          ),
+                              fontSize: 23.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
                         ),
                       ],
                     ),
@@ -88,7 +90,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     borderRadius: BorderRadius.circular(
                       20.0,
                     ),
-                    color: ismedicaltest ? Colors.blue : Colors.grey[400],
+                    color: ismedicaltest
+                        ? ProjectColors.primary_color_blue
+                        : Colors.grey[500],
                   ),
                 ),
               ),
@@ -114,6 +118,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Image(
+                            color: Colors.white,
                             image: AssetImage('assets/images/doctor.png'),
                             height: 80.0,
                             width: 80.0,
@@ -122,16 +127,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         SizedBox(
                           height: 8.0,
                         ),
-                        // Icon(
-                        //   Icons.note_add_outlined,
-                        //   size: 100.0,
-                        // ),
                         Text(
                           LocaleKeys.health.tr(),
                           style: TextStyle(
-                            fontSize: 23.0,
-                            fontWeight: FontWeight.bold,
-                          ),
+                              fontSize: 23.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
                         ),
                       ],
                     ),
@@ -140,7 +141,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     borderRadius: BorderRadius.circular(
                       20.0,
                     ),
-                    color: ismedicaltest ? Colors.grey[400] : Colors.blue,
+                    color: ismedicaltest
+                        ? Colors.grey[500]
+                        : ProjectColors.primary_color_blue,
                   ),
                 ),
               ),
@@ -166,14 +169,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   style: TextStyle(
                       fontSize: 25.0,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white),
+                      color: ProjectColors.button_text_color),
                 ),
               ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(
                   20.0,
                 ),
-                color: Colors.blue[800],
+                color: ProjectColors.primary_color_blue,
               ),
             ),
           ),

@@ -7,6 +7,7 @@ import 'package:medical_project/home_screen.dart';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:medical_project/loading.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
