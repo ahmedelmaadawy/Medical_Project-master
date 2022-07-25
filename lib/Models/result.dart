@@ -44,7 +44,7 @@ Widget buildResulItem(ResultModel results) => Padding(
               width: 80.0,
               child: Center(
                 child: Text(
-                  results.value.toString(),
+                  results.strValue,
                   style: TextStyle(
                     fontSize: 15.0,
                     color: ProjectColors.button_text_color,

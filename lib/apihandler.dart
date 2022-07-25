@@ -83,12 +83,12 @@ class APIHandler {
   }) {
     person.results.clear();
     for (var item in finalResult) {
+      // print("${item['name']}:: ${item['value'].runtimeType}");
+
       person.results.add(ResultModel.addNewValue(
           name: item['name'],
           translation: item['translation'],
-          strValue: item['value'].toString()));
-      print(item['value'].runtimeType);
-      print(item['name']);
+          strValue: item['value']));
     }
 
     return person;
@@ -96,21 +96,32 @@ class APIHandler {
 
   Person enterResult({
     required Person person,
-    required var finalfinale,
+    required var finalfinal,
   }) {
-    var finalResult = json.decode(finalfinale);
-    if (finalResult['Anemia Test']! == 'Found Anemia') {
-      person.hasAnimea = true;
-    } else if (finalResult['Covid Test']! == 'Found Covid') {
-      person.hasCovid = true;
-    } else if (finalResult['Covid Test']! == 'No Covid') {
-      person.hasCovid = false;
-    } else if (finalResult['Anemia Test']! == 'No Anemia') {
-      person.hasAnimea = false;
-    } else if (finalResult['Leukemia Test']! == 'Found Leukemia') {
-      person.hasLukemia = true;
-    } else if (finalResult['Leukemia Test']! == 'No Leukemia') {
-      person.hasLukemia = false;
+    var finalResult;
+    if (person.isOCRTest || person.isEnteredValues) {
+      finalResult = json.decode(finalfinal);
+      print("From Inside ocr or enteredvalue enterResult$finalResult");
+      if (finalResult['Anemia Test']! == 'Found Anemia') {
+        person.hasAnimea = true;
+      } else if (finalResult['Anemia Test']! == 'No Anemia') {
+        person.hasAnimea = false;
+      }
+      if (finalResult['Covid Test']! == 'Found Covid') {
+        person.hasCovid = true;
+      } else if (finalResult['Covid Test']! == 'No Covid') {
+        person.hasCovid = false;
+      }
+    } else if (person.isLeukemiaTest) {
+      print("From Inside leu enterResult$finalResult");
+      finalResult = finalfinal;
+      if (finalResult['Leukemia Test']! == 'Found Leukemia') {
+        print(finalResult);
+        person.hasLukemia = true;
+      } else if (finalResult['Leukemia Test']! == 'No Leukemia') {
+        print(finalResult);
+        person.hasLukemia = false;
+      }
     }
 
     return person;

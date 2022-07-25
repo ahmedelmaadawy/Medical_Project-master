@@ -4,6 +4,7 @@ import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:medical_project/about.dart';
+import 'package:medical_project/help.dart';
 import 'package:medical_project/settings.dart';
 import 'package:medical_project/styles/prjcolors.dart';
 
@@ -70,7 +71,10 @@ class DefaultDrawer extends StatelessWidget {
               LocaleKeys.Help.tr(),
               style: TextStyle(fontSize: 20.0),
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => HelpScreen()));
+            },
           ),
           Container(
             color: Colors.black54,

@@ -1,13 +1,13 @@
 // ignore_for_file: use_key_in_widget_constructors, unused_import, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:medical_project/drcare.dart';
 
 import 'package:medical_project/generated/codegen_loader.g.dart';
 import 'package:medical_project/home_screen.dart';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:medical_project/loading.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
       locale: context.locale,
       localizationsDelegates: context.localizationDelegates,
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      home: DrCare(),
     );
   }
 }

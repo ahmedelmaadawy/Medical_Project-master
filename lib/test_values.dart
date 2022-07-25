@@ -12,6 +12,8 @@ import 'Models/drawer.dart';
 import 'package:medical_project/generated/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 
+import 'personal_information.dart';
+
 class TestValues extends StatefulWidget {
   final Person person;
   http.Client client;
@@ -34,70 +36,79 @@ class _TestValuesState extends State<TestValues> {
   ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        endDrawer: DefaultDrawer(),
-        appBar: AppBar(
-          backgroundColor: ProjectColors.primary_color_blue,
-          title: Text(
-            LocaleKeys.enter_values_text.tr(),
-            style: TextStyle(fontWeight: FontWeight.bold),
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => PersonalInformation()),
+        );
+        return false;
+      },
+      child: Scaffold(
+          endDrawer: DefaultDrawer(),
+          appBar: AppBar(
+            backgroundColor: ProjectColors.primary_color_blue,
+            title: Text(
+              LocaleKeys.enter_values_text.tr(),
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
           ),
-        ),
-        body: Form(
-          key: formKey,
-          child: Column(
-            children: [
-              Expanded(
-                child: ListView.separated(
-                  itemBuilder: (BuildContext context, int index) =>
-                      ResultItemBuilder(results[index]),
-                  itemCount: results.length,
-                  separatorBuilder: (BuildContext context, int index) =>
-                      Container(
-                    height: 1.0,
+          body: Form(
+            key: formKey,
+            child: Column(
+              children: [
+                Expanded(
+                  child: ListView.separated(
+                    itemBuilder: (BuildContext context, int index) =>
+                        ResultItemBuilder(results[index]),
+                    itemCount: results.length,
+                    separatorBuilder: (BuildContext context, int index) =>
+                        Container(
+                      height: 1.0,
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  height: 50.0,
-                  width: double.infinity,
-                  child: MaterialButton(
-                    onPressed: () {
-                      widget.person.results = results;
-                      if (formKey.currentState!.validate()) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => AfterResult(
-                              widget.person,
-                              client: widget.client,
-                              result: '',
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    height: 50.0,
+                    width: double.infinity,
+                    child: MaterialButton(
+                      onPressed: () {
+                        widget.person.results = results;
+                        if (formKey.currentState!.validate()) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AfterResult(
+                                widget.person,
+                                client: widget.client,
+                                result: '',
+                              ),
                             ),
-                          ),
-                        );
-                      }
-                    },
-                    child: Text(
-                      LocaleKeys.next_button.tr(),
-                      style: TextStyle(
-                          fontSize: 25.0,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
+                          );
+                        }
+                      },
+                      child: Text(
+                        LocaleKeys.next_button.tr(),
+                        style: TextStyle(
+                            fontSize: 25.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
                     ),
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(
-                      20.0,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                        20.0,
+                      ),
+                      color: ProjectColors.primary_color_blue,
                     ),
-                    color: ProjectColors.primary_color_blue,
                   ),
                 ),
-              ),
-            ],
-          ),
-        ));
+              ],
+            ),
+          )),
+    );
   }
 
   @override
@@ -110,7 +121,7 @@ class _TestValuesState extends State<TestValues> {
               keyboardType: TextInputType.number,
               onChanged: (String value) {
                 setState(() {
-                  result.value = double.parse(value);
+                  result.strValue = value;
                 });
               },
               validator: (value) {

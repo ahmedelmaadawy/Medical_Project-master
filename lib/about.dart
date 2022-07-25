@@ -2,7 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:medical_project/Models/drawer.dart';
+import 'package:medical_project/generated/locale_keys.g.dart';
 import 'package:medical_project/styles/prjcolors.dart';
+
+import './generated/locale_keys.g.dart';
+import 'package:easy_localization/src/public_ext.dart';
 
 class AboutScreen extends StatelessWidget {
   const AboutScreen({Key? key}) : super(key: key);
@@ -13,13 +17,16 @@ class AboutScreen extends StatelessWidget {
   static const ImageProvider elmaadawy_Image =
       AssetImage('assets/images/elmaadawy.png');
   static const ImageProvider nasser_Image =
-      AssetImage('assets/images/nasser.jpg');
+      AssetImage('assets/images/nasser.jpeg');
+  static const ImageProvider abdalrahman_image =
+      AssetImage('assets/images/oraby.jpeg');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       endDrawer: DefaultDrawer(),
       appBar: AppBar(
-        title: Text("About The Application"),
+        title: Text(LocaleKeys.about.tr()),
         backgroundColor: ProjectColors.primary_color_blue,
       ),
       body: SingleChildScrollView(
@@ -32,7 +39,7 @@ class AboutScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Text(
-                  'Medical Lab Tests is the perfect pocket tool for medical laboratory tests and enables you to browse through a huge library of common lab tests to find out more about clinical laboratory values. So, no matter if you are a healthcare professional, a nurse, medical student or have just graduated from medical university, this lab reference app is a MUST HAVE app for you. You get to easily read the accurate interpretations for common lab tests and it also helps you to remember lab values as well as differentials between values and the learn about reference values.',
+                  LocaleKeys.about_screen.tr(),
                   style: TextStyle(
                     height: 1.5,
                     fontSize: 15.0,
@@ -194,7 +201,7 @@ class AboutScreen extends StatelessWidget {
                           children: [
                             CircleAvatar(
                               radius: 40.0,
-                              //TODO: abdelrahman image
+                              backgroundImage: abdalrahman_image,
                             ),
                             SizedBox(
                               height: 10.0,
@@ -205,7 +212,7 @@ class AboutScreen extends StatelessWidget {
                                   fontSize: 15.0, fontWeight: FontWeight.w500),
                             ),
                             Text(
-                              'oraby',
+                              'Oraby',
                               style: TextStyle(
                                   fontSize: 15.0, fontWeight: FontWeight.w500),
                             ),

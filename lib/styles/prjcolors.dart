@@ -7,7 +7,8 @@ class ProjectColors {
   // static const primary_color_blue = Color.fromARGB(255, 76, 157, 212);
   static const button_text_color = Colors.white;
   static const button_dark_text = Color.fromRGBO(0, 0, 0, 1);
-  static const primary_color_blue = Color.fromARGB(250, 0, 133, 200);
+  static const primary_color_blue = Color.fromARGB(255, 21, 129, 202);
+  // static const primary_color_blue = Color.fromARGB(248, 0, 133, 200);
 
   static const secondary_color = Color.fromARGB(255, 255, 64, 129); //pink
   // static const secondary_color = Color.fromARGB(230, 94, 86, 126);
